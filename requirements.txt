@@ -1,0 +1,11 @@
+# This file contains all the third-party dependencies that are needed to run the code in the repository
+numpy
+scipy
+matplotlib
+# For the sake of simplicity we list all dependencies in a single file, also the ones which are not
+# needed to execute the true program. For example:
+pytest
+# pytest is actually just a developer dependencies, i.e. something only the developers care about, but
+# not the users. In this case the users will simply assume that your program is doing what it is promising
+# and that you did write sufficient unit tests to prove it. Users live in the real live and not in a
+# test environment.
