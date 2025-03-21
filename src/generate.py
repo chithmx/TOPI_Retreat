@@ -4,6 +4,7 @@ import argparse
 from dataclasses import dataclass
 import pathlib
 import numpy as np
+from scipy.optimize import curve_fit
 
 EARTH_GRAVITY = 1.0  # [a.u.]
 """Acceleration on earth due to gravity."""
@@ -56,7 +57,9 @@ class SkiJump:
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-        raise NotImplementedError()
+        a = -2.18130377e-12
+        b = -1.00000000e+00
+        return self.a * x + self.b * x ** 2
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -113,7 +116,8 @@ if __name__ == "__main__":
     parser.add_argument(
         "input", help="Jumping configuration file - should end in .json"
     )
-    parser.add_argument("output", help="Target file for output - should end in .txt")
+    parser.add_argument(
+        "output", help="Target file for output - should end in .txt")
     parser.add_argument("-n", type=int, default=10, help="Number of points")
     args = parser.parse_args()
     # 1. Read the configuration
