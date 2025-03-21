@@ -58,7 +58,7 @@ class SkiJump:
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-        return -2.18130377e-12 * x + -1.00000000e+00 * x ** 2
+        return -2.18130377e-12 * x + -1.00000000e00 * x**2
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -71,15 +71,19 @@ class SkiJump:
         # Create a `SkiJump` object with the specification given in the file.
         # The `dataclass` decorator adds, e.g., a constructor with keyword arguments,
         # as is used above for creating the `Hill` object.
-        f = open(path, )
+        f = open(
+            path,
+        )
         data = json.load(f)
-        return SkiJump(data['v0'], data["alpha"])
+        return SkiJump(data["v0"], data["alpha"])
 
     def landing(self, hill: Hill) -> float:
         """Returns the intersection of the trajectory and the hill."""
+
         # Work here in Step 1!
         def checkInter(x):
             return hill.y(x) - self.y(x)
+
         return fsolve(checkInter, 1)[0]
 
     def sample(self, hill: Hill, n: int) -> tuple[np.ndarray, np.ndarray]:
@@ -119,8 +123,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "input", help="Jumping configuration file - should end in .json"
     )
-    parser.add_argument(
-        "output", help="Target file for output - should end in .txt")
+    parser.add_argument("output", help="Target file for output - should end in .txt")
     parser.add_argument("-n", type=int, default=10, help="Number of points")
     args = parser.parse_args()
     # 1. Read the configuration
