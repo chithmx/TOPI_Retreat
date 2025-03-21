@@ -4,7 +4,7 @@ import argparse
 from dataclasses import dataclass
 import pathlib
 import numpy as np
-from scipy.optimize import curve_fit
+from scipy.optimize import curve_fit, fsolve
 import json
 
 EARTH_GRAVITY = 1.0  # [a.u.]
@@ -58,9 +58,7 @@ class SkiJump:
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-        a = -2.18130377e-12
-        b = -1.00000000e+00
-        return self.a * x + self.b * x ** 2
+        return -2.18130377e-12 * x + -1.00000000e+00 * x ** 2
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -80,7 +78,9 @@ class SkiJump:
     def landing(self, hill: Hill) -> float:
         """Returns the intersection of the trajectory and the hill."""
         # Work here in Step 1!
-        raise NotImplementedError()
+        def checkInter(x):
+            return hill.y(x) - self.y(x)
+        return fsolve(checkInter, 1)[0]
 
     def sample(self, hill: Hill, n: int) -> tuple[np.ndarray, np.ndarray]:
         """Discretize trajectory with `n` points until the landing.
