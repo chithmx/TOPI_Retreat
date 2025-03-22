@@ -19,10 +19,7 @@ sk = SkiJump.from_json_file("config/A-test.json")
 
 hill = Hill(10, -30)
 print(sk.landing(hill))
-<<<<<<< HEAD
 
 def vec(v, alpha):
     v_vec = np.array([v *np.cos(alpha), v * np.sin(alpha)])
     return v_vec
-=======
->>>>>>> refs/remotes/origin/main
