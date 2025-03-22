@@ -57,7 +57,7 @@ class SkiJump:
 
     def preFactors(self):
         a = np.tan(self.alpha)
-        b = - EARTH_GRAVITY / 2 / (np.cos(self.angle)**2 * self.v0**2)
+        b = - EARTH_GRAVITY / 2 / (np.cos(self.alpha)**2 * self.v0**2)
         return [a, b]
 
     def y(self, x: float) -> float:
@@ -112,9 +112,10 @@ class SkiJump:
         # 1. Compute the landing point
         # 2. Generate `n` equally space x points between the landing point and 0. using
         #    [`numpy.linspace`](https://numpy.org/doc/stable/reference/generated/numpy.linspace.html#numpy-linspace)
-        xs = np.array([])
+        landing = self.landing(hill)
+        xs = np.linspace(0, landing, n)
         # 3. Compute the trajectory for each x point
-        ys = np.array([])
+        ys = -1 * self.y(xs)
         return xs, ys
 
 
@@ -135,6 +136,7 @@ if __name__ == "__main__":
     my_obj = SkiJump.from_json_file(args.input)
     # 2. Sample
     my_xs, my_ys = my_obj.sample(HILL, args.n)
+    np.savetxt("data/A-test-new.txt", (my_xs, my_ys))
     # 3. Dump the x points and the y points into the file `args.output` using
     #    [`numpy.savetxt`](https://numpy.org/doc/stable/reference/generated/numpy.savetxt.html#numpy-savetxt).
     #    Make x the first column and y the second column.
