@@ -55,10 +55,16 @@ class SkiJump:
     alpha: float  # [rad]
     """Initial angle."""
 
+    def preFactors(self):
+        a = np.tan(self.alpha)
+        b = - EARTH_GRAVITY / 2 / (np.cos(self.angle)**2 * self.v0**2)
+        return [a, b]
+
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-        return -2.18130377e-12 * x + -1.00000000e+00 * x ** 2
+        a, b = self.preFactors()
+        return a * x + b * x ** 2
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -79,7 +85,7 @@ class SkiJump:
         """Returns the intersection of the trajectory and the hill."""
         # Work here in Step 1!
         def checkInter(x):
-            return hill.y(x) - self.y(x)
+            return hill.y(x) - self.y(x) # Solve for jump trajectory = hill, or jump trajectory - hill = 0
         return fsolve(checkInter, 1)[0]
 
     def sample(self, hill: Hill, n: int) -> tuple[np.ndarray, np.ndarray]:
