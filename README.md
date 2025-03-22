@@ -15,3 +15,12 @@ The detailed instructions are listed in the `instructions` directory:
 0. [Exercise A: Basic Fitting](./instructions/3-Exercise-A.md)
 0. [Exercise B: Non-trivial Fitting](./instructions/4-Exercise-B.md)
 0. [Exercise C: Getting more advanced](./instructions/5-Exercise-C.md)
+
+
+### Setting Up Pre-commit Hooks
+
+To ensure consistent code formatting, we use [pre-commit](https://pre-commit.com) and [black](https://black.readthedocs.io). Follow these steps to set it up:
+
+1. Install pre-commit:
+   ```bash
+   pip install pre-commit
