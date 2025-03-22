@@ -63,12 +63,8 @@ class SkiJump:
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-<<<<<<< HEAD
         a, b = self.preFactors()
         return a * x + b * x ** 2
-=======
-        return -2.18130377e-12 * x + -1.00000000e00 * x**2
->>>>>>> refs/remotes/origin/main
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -92,12 +88,7 @@ class SkiJump:
 
         # Work here in Step 1!
         def checkInter(x):
-<<<<<<< HEAD
             return hill.y(x) - self.y(x) # Solve for jump trajectory = hill, or jump trajectory - hill = 0
-=======
-            return hill.y(x) - self.y(x)
-
->>>>>>> refs/remotes/origin/main
         return fsolve(checkInter, 1)[0]
 
     def sample(self, hill: Hill, n: int) -> tuple[np.ndarray, np.ndarray]:
