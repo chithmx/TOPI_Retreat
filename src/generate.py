@@ -4,6 +4,8 @@ import argparse
 from dataclasses import dataclass
 import pathlib
 import numpy as np
+from scipy.optimize import curve_fit, fsolve
+import json
 
 EARTH_GRAVITY = 1.0  # [a.u.]
 """Acceleration on earth due to gravity."""
@@ -53,10 +55,16 @@ class SkiJump:
     alpha: float  # [rad]
     """Initial angle."""
 
+    def preFactors(self):
+        a = np.tan(self.alpha)
+        b = - EARTH_GRAVITY / 2 / (np.cos(self.angle)**2 * self.v0**2)
+        return [a, b]
+
     def y(self, x: float) -> float:
         """Return the trajectory."""
         # Work here in Step 1!
-        raise NotImplementedError()
+        a, b = self.preFactors()
+        return a * x + b * x ** 2
 
     @staticmethod
     # ↑ this is the `staticmethod` decorator, whose documentation can be found
@@ -69,12 +77,19 @@ class SkiJump:
         # Create a `SkiJump` object with the specification given in the file.
         # The `dataclass` decorator adds, e.g., a constructor with keyword arguments,
         # as is used above for creating the `Hill` object.
-        raise NotImplementedError()
+        f = open(
+            path,
+        )
+        data = json.load(f)
+        return SkiJump(data["v0"], data["alpha"])
 
     def landing(self, hill: Hill) -> float:
         """Returns the intersection of the trajectory and the hill."""
+
         # Work here in Step 1!
-        raise NotImplementedError()
+        def checkInter(x):
+            return hill.y(x) - self.y(x) # Solve for jump trajectory = hill, or jump trajectory - hill = 0
+        return fsolve(checkInter, 1)[0]
 
     def sample(self, hill: Hill, n: int) -> tuple[np.ndarray, np.ndarray]:
         """Discretize trajectory with `n` points until the landing.

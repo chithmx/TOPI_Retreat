@@ -2,6 +2,7 @@
 numpy
 scipy
 matplotlib
+pre-commit
 # For the sake of simplicity we list all dependencies in a single file, also the ones which are not
 # needed to execute the true program. For example:
 pytest
