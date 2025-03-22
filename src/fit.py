@@ -29,12 +29,13 @@ print("Initial velocity:" , np.sqrt(EARTH_GRAVITY/(-2*res[1])))
 
 
 # Step 2: Plot the data and your fit into one diagram.
-plt.plot(xdata, ydata, marker='o')
+plt.plot(xdata, ydata, marker='o', label="data")
 xpoints = np.linspace(0, 10, 200)
 plt.plot(xpoints, parabola(xpoints, *res), label="fit");
 plt.xlabel("x [a. u.]")
 plt.ylabel("y [a. u.]")
 plt.title("Ski jumper trajectory")
+plt.legend()
 plt.show()
 
 
